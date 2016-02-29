@@ -1,0 +1,15 @@
+<resources>>
+
+	<style name="Theme.App" parent="Base.MaterialAppTheme">
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:statusBarColor">@android:color/transparent</item>
+		<item name="android:navigationBarColor">@color/navigationBarColor</item>
+	</style>
+
+	<style name="Theme.App.Feedback" parent="Base.MaterialAppTheme">
+		<item name="android:statusBarColor">@color/colorPrimaryDark</item>
+		<item name="android:windowDrawsSystemBarBackgrounds">true</item>
+		<item name="android:navigationBarColor">@color/navigationBarColor</item>
+	</style>
+
+</resources>

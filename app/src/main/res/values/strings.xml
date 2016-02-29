@@ -1,0 +1,16 @@
+<resources>
+	<string name="app_name">HEW</string>
+	<string name="action_settings">Settings</string>
+
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="empty_data">データがありません</string>
+
+	<string name="all">すべて</string>
+	<string name="now_open">開催中</string>
+	<string name="end">終了</string>
+	<string name="event">イベント</string>
+	<string name="logout">ログアウト</string>
+	<string name="student_id">学籍番号</string>
+	<string name="password">パスワード</string>
+	<string name="login">ログイン</string>
+</resources>

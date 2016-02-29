@@ -1,0 +1,59 @@
+<resources>
+
+	<style name="Theme.App" parent="Base.MaterialAppTheme">
+	</style>
+
+	<!-- Base application theme. -->
+	<style name="Base.MaterialAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/colorPrimary</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<!--<item name="textColorPrimary">@color/textColorPrimary</item>-->
+		<item name="android:windowBackground">@color/window_background</item>
+	</style>
+
+
+	<!-- Text -->
+	<style name="TextTitle">
+		<item name="android:textSize">@dimen/text_large</item>
+		<item name="android:textColor">@color/black</item>
+	</style>
+
+	<style name="TextTitle.OfList">
+		<item name="android:maxLines">2</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+
+	<style name="TextSub">
+		<item name="android:textSize">@dimen/text</item>
+		<item name="android:textColor">@color/grey600</item>
+		<item name="android:lines">2</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+
+	<style name="FabTheme">
+		<item name="colorAccent">@color/white</item>
+	</style>
+
+	<style name="TabTheme">
+		<item name="tabTextColor">@color/white</item>
+		<item name="tabSelectedTextColor">@color/colorAccent</item>
+		<item name="tabIndicatorColor">@color/colorAccent</item>
+		<item name="android:background">@color/colorPrimary</item>
+	</style>
+
+	<style name="Widget.CardContent" parent="android:Widget">
+		<item name="android:paddingLeft">16dp</item>
+		<item name="android:paddingRight">16dp</item>
+		<item name="android:paddingTop">24dp</item>
+		<item name="android:paddingBottom">24dp</item>
+		<item name="android:orientation">vertical</item>
+	</style>
+
+	<!--<style name="BlueButton" parent="Theme.AppCompat.Light">-->
+		<!--<item name="colorControlHighlight">@color/colorPrimaryDark</item>-->
+		<!--<item name="colorButtonNormal">@color/colorPrimary</item>-->
+	<!--</style>-->
+
+</resources>

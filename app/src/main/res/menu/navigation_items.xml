@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<item
+		android:id="@+id/group"
+		android:title="@string/event">﻿
+		<menu android:checkableBehavior="single">
+			<item
+				android:id="@+id/all"
+				android:icon="@drawable/ic_other_calender_all_grey_500"
+				android:title="@string/all"/>
+			<item
+				android:id="@+id/now_open"
+				android:icon="@drawable/ic_other_calender_now_grey_500"
+				android:title="@string/now_open"/>
+			<item
+				android:id="@+id/end"
+				android:icon="@drawable/ic_other_calender_end_grey_500"
+				android:title="@string/end"/>
+
+		</menu>
+	</item>
+
+	<group
+		android:id="@+id/group_setting"
+		android:checkableBehavior="single">
+		<item
+			android:id="@+id/add_group"
+			android:icon="@drawable/ic_other_logout_grey_500"
+			android:title="@string/logout"/>
+
+
+	</group>
+
+</menu>

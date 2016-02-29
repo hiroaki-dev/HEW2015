@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			 xmlns:tools="http://schemas.android.com/tools"
+				android:padding="@dimen/spacing"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			 tools:context="me.hiroaki.hew.fragment.OpinionFragment">
+
+	<TextView
+		android:id="@+id/title"
+		style="@style/TextTitle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="フリースペース"/>
+
+	<TextView
+		android:id="@+id/description"
+		style="@style/TextTitle"
+		android:layout_marginTop="@dimen/spacing_small"
+		android:layout_below="@id/title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="アンケートの回答を選んだ理由や、その他意見、要望を記入してください。"/>
+
+	<TextView
+		android:id="@+id/count"
+		style="@style/TextSub"
+		android:layout_marginTop="@dimen/spacing_small"
+		android:layout_below="@id/description"
+		android:layout_alignParentRight="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="文字"/>
+
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/opinion"
+		android:layout_marginTop="@dimen/spacing_xsmall"
+		android:layout_below="@id/count"
+		android:gravity="top"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"/>
+
+
+
+</RelativeLayout>

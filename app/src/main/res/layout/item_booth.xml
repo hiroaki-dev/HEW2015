@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clickable="true"
+				android:paddingLeft="16dp"
+				android:paddingRight="16dp"
+				android:paddingTop="8dp"
+				android:paddingBottom="8dp">
+
+	<ImageView
+		android:id="@+id/booth_image_icon"
+		android:src="@drawable/no_image_booth"
+		android:layout_width="80dp"
+		android:layout_height="80dp"
+		android:layout_marginRight="16dp"/>
+	
+	<ImageView
+		android:id="@+id/feedback"
+		android:src="@drawable/ic_feedback_orange_500_24dp"
+		android:layout_alignParentRight="true"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"/>
+
+	<TextView
+		android:id="@+id/booth_name"
+		style="@style/TextTitle"
+		android:text="お年寄りの明日を元気に！スマートブラッシュ！！"
+		android:layout_toRightOf="@id/booth_image_icon"
+		android:layout_toLeftOf="@id/feedback"
+		android:gravity="center_vertical"
+		android:paddingTop="6dp"
+		android:ellipsize="end"
+		android:lines="2"
+		android:textAppearance="@style/TextAppearance.AppCompat.Title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
+
+	<TextView
+		android:id="@+id/good"
+		style="@style/TextSub"
+		android:layout_width="wrap_content"
+		android:layout_height="@dimen/user_image_small"
+		android:layout_marginTop="@dimen/spacing_small"
+		android:layout_below="@id/booth_name"
+		android:layout_alignBottom="@id/booth_image_icon"
+		android:layout_alignParentRight="true"
+		android:text="110件"
+		android:lines="1"
+		android:gravity="center_vertical"
+		android:drawablePadding="@dimen/icon_spacing_small"
+		android:drawableStart="@drawable/ic_thumb_up_grey_500_18dp"/>
+
+	<TextView
+		android:id="@+id/representative"
+		style="@style/TextSub"
+		android:text="山田 太郎 他"
+		android:layout_toRightOf="@id/booth_image_icon"
+		android:layout_toLeftOf="@id/good"
+		android:layout_alignTop="@id/good"
+		android:layout_alignBottom="@id/good"
+		android:layout_below="@id/booth_name"
+		android:gravity="center_vertical"
+		android:lines="1"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"/>
+
+
+</RelativeLayout>

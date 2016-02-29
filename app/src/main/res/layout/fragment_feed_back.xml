@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			 xmlns:tools="http://schemas.android.com/tools"
+			  android:orientation="vertical"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			  android:padding="@dimen/spacing"
+			 tools:context="me.hiroaki.hew.fragment.FeedBackFragment">
+
+	<TextView
+		android:id="@+id/question_number"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		style="@style/TextTitle"
+		android:text="Q1"/>
+
+	<TextView
+		android:id="@+id/question_detail"
+		android:layout_marginTop="@dimen/spacing_small"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		style="@style/TextTitle"
+		android:text="ほげｈごえｈごえほｇへおｈごえごえおｇへおｇｈげ"/>
+	
+	<RadioGroup
+		android:id="@+id/choice_group"
+		android:layout_marginTop="@dimen/spacing"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<android.support.v7.widget.AppCompatRadioButton
+			android:id="@+id/choice1"
+			android:text="hogehogheoghe"
+			style="@style/TextSub"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+
+		<android.support.v7.widget.AppCompatRadioButton
+			android:id="@+id/choice2"
+			android:text="hogehogheoghe"
+			style="@style/TextSub"
+			android:layout_marginTop="@dimen/spacing_small"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+
+		<android.support.v7.widget.AppCompatRadioButton
+			android:id="@+id/choice3"
+			android:text="hogehogheoghe"
+			style="@style/TextSub"
+			android:layout_marginTop="@dimen/spacing_small"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+
+		<android.support.v7.widget.AppCompatRadioButton
+			android:id="@+id/choice4"
+			android:text="hogehogheoghe"
+			style="@style/TextSub"
+			android:layout_marginTop="@dimen/spacing_small"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+
+		<android.support.v7.widget.AppCompatRadioButton
+			android:id="@+id/choice5"
+			android:text="hogehogheoghe"
+			style="@style/TextSub"
+			android:layout_marginTop="@dimen/spacing_small"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+
+	</RadioGroup>
+</LinearLayout>
