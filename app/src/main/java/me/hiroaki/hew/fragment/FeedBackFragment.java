@@ -27,7 +27,6 @@ public class FeedBackFragment extends Fragment implements OnPageScrolledListener
 	public static final String BUNDLE_KEY_ANSWER_NUM = "answer_num";
 
 	private OnQuestionnaireCheckedChangeListener questionnaireCheckedChangeListener;
-//	private OnRadioGroupCheckListener radioGroupCheckListener;
 	private OnRadioStatusChangeListener radioStatusChangeListener;
 	private int lineNum;
 
@@ -72,7 +71,6 @@ public class FeedBackFragment extends Fragment implements OnPageScrolledListener
 		super.onAttach(context);
 		try {
 			questionnaireCheckedChangeListener = (OnQuestionnaireCheckedChangeListener) getActivity();
-//			radioGroupCheckListener = (OnRadioGroupCheckListener) getActivity();
 			radioStatusChangeListener = (OnRadioStatusChangeListener) getActivity();
 		} catch (ClassCastException e) {
 			throw new ClassCastException(getActivity().toString()
@@ -88,6 +86,7 @@ public class FeedBackFragment extends Fragment implements OnPageScrolledListener
 
 		Questionnaire questionnaire = Questionnaire.getQuestionnaire(getContext(), getArguments().getString(BUNDLE_KEY_QUESTIONNAIRE));
 		lineNum = questionnaire.getLineNum();
+		Log.d(TAG, "create view lineNum is " + lineNum);
 		questionNumber.setText("Q" + questionnaire.getLineNum());
 		questionDetail.setText(questionnaire.getContent());
 		choice1.setText(questionnaire.getChoice1());
@@ -116,7 +115,6 @@ public class FeedBackFragment extends Fragment implements OnPageScrolledListener
 			default:
 				break;
 		}
-//		if (getArguments().getInt(BUNDLE_KEY_ANSWER_NUM) != 0) radioGroupCheckListener.onRadioChecked(true);
 
 		return view;
 	}
@@ -126,14 +124,13 @@ public class FeedBackFragment extends Fragment implements OnPageScrolledListener
 	public void onDetach() {
 		super.onDetach();
 		questionnaireCheckedChangeListener = null;
-//		radioGroupCheckListener = null;
 	}
 
 	RadioGroup.OnCheckedChangeListener OnQuestionnairesChangeListener = new RadioGroup.OnCheckedChangeListener() {
 		@Override
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
+			Log.d(TAG, "radio group sat (checkedId = " + checkedId);
 			if (checkedId != -1) {
-				Log.d(TAG, "radio group sat (checkedId = " + checkedId);
 				radioStatusChangeListener.onRadioStatusChanged(true);
 				switch (checkedId) {
 					case R.id.choice1:
@@ -163,27 +160,10 @@ public class FeedBackFragment extends Fragment implements OnPageScrolledListener
 		if (questionnaires.getCheckedRadioButtonId() == -1) radioStatusChangeListener.onRadioStatusChanged(false);
 		else radioStatusChangeListener.onRadioStatusChanged(true);
 	}
-//
-//	@Override
-//	public void onNextClicked() {
-//		Log.d(TAG, "FeedbackFragment onNextClicked");
-//		Log.d(TAG, "getChecedRadioButtonId = " + questionnaires.getCheckedRadioButtonId());
-//		radioGroupCheckListener.onRadioChecked(questionnaires.getCheckedRadioButtonId() == -1 ? false : true);
-//	}
-//
-//	@Override
-//	public void onPrevClicked() {
-//		Log.d(TAG, "FeedbackFragment onPrevClicked");
-//		radioGroupCheckListener.onRadioChecked(questionnaires.getCheckedRadioButtonId() == -1 ? false : true);
-//	}
 
 	public interface OnQuestionnaireCheckedChangeListener {
 		void onCheckedChanged(int lineNum, int answer);
 	}
-//
-//	public interface OnRadioGroupCheckListener {
-//		void onRadioChecked(boolean flag);
-//	}
 
 	public interface OnRadioStatusChangeListener {
 		void onRadioStatusChanged(boolean status);

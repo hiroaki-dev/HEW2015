@@ -47,7 +47,7 @@
 				android:padding="16dp"
 				android:text="戻る"
 				android:visibility="gone"
-				android:textColor="@color/grey500"
+				android:textColor="@color/colorPrimary"
 				android:textSize="16sp" />
 
 			<LinearLayout

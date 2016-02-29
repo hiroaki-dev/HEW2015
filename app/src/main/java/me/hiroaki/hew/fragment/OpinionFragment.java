@@ -16,9 +16,10 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.hiroaki.hew.R;
+import me.hiroaki.hew.feedback.OnPageScrolledListener;
 
 
-public class OpinionFragment extends Fragment {
+public class OpinionFragment extends Fragment implements OnPageScrolledListener {
 	private static final String TAG = OpinionFragment.class.getSimpleName();
 
 	private static final String BUNDLE_KEY = "content";
@@ -98,6 +99,11 @@ public class OpinionFragment extends Fragment {
 	public void onDetach() {
 		super.onDetach();
 		opinionTextChangeListener = null;
+	}
+
+	@Override
+	public void onPageScrolled() {
+
 	}
 
 	public interface OnOpinionTextChangeListener {

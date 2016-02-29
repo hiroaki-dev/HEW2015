@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.realm.Realm;
@@ -57,15 +60,13 @@ public class FeedBackActivity extends AppCompatActivity
 	EventCategory eventCategory;
 	Booth booth;
 
-//	me.hiroaki.hew.feedback.OnNextClickListener onNextClickListener;
-//	me.hiroaki.hew.feedback.OnPrevClickListener onPrevClickListener;
-	OnPageScrolledListener pageScrolledListener;
+	List<OnPageScrolledListener> pageScrolledListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_feed_back);
-
+		pageScrolledListener = new ArrayList<>();
 		ButterKnife.bind(this);
 
 		setSupportActionBar(toolbar);
@@ -84,7 +85,6 @@ public class FeedBackActivity extends AppCompatActivity
 		booth = Booth.getBooth(this, boothId);
 
 		stepPrev.setOnClickListener(OnPrevClickListener);
-		stepNext.setOnClickListener(OnNextClickListener);
 //		stepEnd.setOnClickListener(OnEndClickListener);
 
 		RealmResults<Questionnaire> questionnaires = Realm.getInstance(this)
@@ -108,16 +108,13 @@ public class FeedBackActivity extends AppCompatActivity
 		@Override
 		public void onClick(View v) {
 			viewPager.arrowScroll(ViewPager.FOCUS_LEFT);
-//			onPrevClickListener.onPrevClicked();
 		}
 	};
 
 	View.OnClickListener OnNextClickListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-//			setStepNextFalse();
 			viewPager.arrowScroll(ViewPager.FOCUS_RIGHT);
-//			onNextClickListener.onNextClicked();
 		}
 	};
 
@@ -137,9 +134,7 @@ public class FeedBackActivity extends AppCompatActivity
 					questionnaire.getId(),
 					answer == null ? 0 : answer.getAnswerNum()
 			);
-//			onPrevClickListener = feedBackFragment;
-//			onNextClickListener = feedBackFragment;
-			pageScrolledListener = feedBackFragment;
+			pageScrolledListener.add(feedBackFragment);
 			adapter.addFragment(feedBackFragment, String.valueOf(questionnaire.getLineNum()));
 		}
 		return adapter;
@@ -149,6 +144,7 @@ public class FeedBackActivity extends AppCompatActivity
 		// TODO: 学籍番号書き換え
 		Opinion opinion = Opinion.getOpinion(this, booth.getId(), "ohs503001");
 		OpinionFragment opinionFragment = OpinionFragment.newInstance(opinion == null ? "" : opinion.getContent());
+		pageScrolledListener.add(opinionFragment);
 		adapter.addFragment(opinionFragment, "意見");
 		return adapter;
 	}
@@ -231,12 +227,13 @@ public class FeedBackActivity extends AppCompatActivity
 				stepNext.setVisibility(View.VISIBLE);
 			}
 
+			pageScrolledListener.get(position).onPageScrolled();
+
 		}
 
 		@Override
 		public void onPageScrollStateChanged(int state) {
 			Log.d(TAG, "onPageScrollStateChanged");
-			pageScrolledListener.onPageScrolled();
 		}
 	};
 
@@ -250,23 +247,13 @@ public class FeedBackActivity extends AppCompatActivity
 	private void setStepNextTrue() {
 		Log.d(TAG, "setStepNextTrue");
 		stepNext.setTextColor(getResources().getColor(R.color.colorPrimary));
+		stepNext.setOnClickListener(OnNextClickListener);
 	}
 
 	private void setStepNextFalse() {
 		Log.d(TAG, "setStepNextFlase");
 		stepNext.setTextColor(getResources().getColor(R.color.grey500));
+		stepNext.setOnClickListener(null);
 	}
 
-//	@Override
-//	public void onRadioChecked(boolean flag) {
-//		if (flag) {
-////			stepNext.setOnClickListener(OnNextClickListener);
-//			stepNext.setTextColor(getResources().getColor(R.color.colorPrimary));
-//			stepPrev.setTextColor(getResources().getColor(R.color.colorPrimary));
-//		} else {
-////			stepNext.setOnClickListener(null);
-//			stepNext.setTextColor(getResources().getColor(R.color.grey500));
-//			stepPrev.setTextColor(getResources().getColor(R.color.grey500));
-//		}
-//	}
 }
