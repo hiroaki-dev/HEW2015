@@ -9,6 +9,7 @@ import java.io.Serializable;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -54,5 +55,11 @@ public class Category extends RealmObject implements Serializable{
 				.where(Category.class)
 				.equalTo("id", id)
 				.findFirst();
+	}
+
+	public static RealmResults<Category> getAllCategory(Context context) {
+		return Realm.getInstance(context)
+				.where(Category.class)
+				.findAll();
 	}
 }

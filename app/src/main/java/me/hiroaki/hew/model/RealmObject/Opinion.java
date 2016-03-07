@@ -4,6 +4,7 @@ import android.content.Context;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -58,6 +59,13 @@ public class Opinion extends RealmObject {
 				.findFirst();
 	}
 
+	public static Opinion getOpinion(Context context, String boothId) {
+		return Realm.getInstance(context)
+				.where(Opinion.class)
+				.equalTo("boothId", boothId)
+				.findFirst();
+	}
+
 	public static Opinion getOpinion(Context context, String boothId, String studentId) {
 		return Realm.getInstance(context)
 				.where(Opinion.class)
@@ -65,6 +73,13 @@ public class Opinion extends RealmObject {
 				.equalTo("boothId", boothId)
 				.findFirst();
 	}
+
+	public static RealmResults<Opinion> getAllOpinion(Context context) {
+		return Realm.getInstance(context)
+				.where(Opinion.class)
+				.findAll();
+	}
+
 
 	public static int getAutoIncrementId(Context context) {
 		Number num =  Realm.getInstance(context)

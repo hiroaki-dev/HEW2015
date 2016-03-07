@@ -7,10 +7,20 @@
 	tools:context=".activity.LoginActivity"
 	tools:showIn="@layout/activity_login">
 
+	<TextView
+		android:id="@+id/title_RL"
+		android:textSize="@dimen/text_xlarge"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="50dp"
+		android:text="@string/title"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"/>
+
 	<ImageView
 		android:id="@+id/account_circle_image_RL"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="124dp"
+		android:layout_marginTop="40dp"
+		android:layout_below="@id/title_RL"
 		android:src="@drawable/ic_other_account_circle"
 		android:layout_width="80dp"
 		android:layout_height="80dp"/>
@@ -44,12 +54,13 @@
 			android:singleLine="true"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:inputType="textPassword"
 			android:hint="@string/password"/>
 	</android.support.design.widget.TextInputLayout>
 
 	<Button
 		android:id="@+id/login"
-		android:layout_marginTop="60dp"
+		android:layout_marginTop="48dp"
 		android:text="@string/login"
 		android:layout_centerHorizontal="true"
 		android:layout_below="@id/password_RL"

@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
@@ -26,6 +27,7 @@ import io.realm.RealmBasedRecyclerViewAdapter;
  * - LoadMore
  */
 public class RealmRecyclerView extends FrameLayout {
+    private static final String TAG = RealmRecyclerView.class.getSimpleName();
 
     public interface OnRefreshListener {
         void onRefresh();
@@ -93,9 +95,9 @@ public class RealmRecyclerView extends FrameLayout {
         }
     }
 
-//    public void setEnabled(boolean flag) {
-//        swipeRefreshLayout.setEnabled(flag);
-//    }
+    public void setEnabled(boolean flag) {
+        swipeRefreshLayout.setEnabled(flag);
+    }
 
     private void init(Context context, AttributeSet attrs) {
         inflate(context, R.layout.realm_recycler_view, this);
@@ -352,12 +354,21 @@ public class RealmRecyclerView extends FrameLayout {
     }
 
     public void setRefreshing(boolean refreshing) {
+        Log.d(TAG, "isRefreshable is " + isRefreshable );
         if (!isRefreshable) {
             return;
         }
+        Log.d(TAG, "isRefreshing is " + isRefreshing);
+        Log.d(TAG, "refreshing is " + refreshing);
         isRefreshing = refreshing;
         swipeRefreshLayout.setRefreshing(refreshing);
+//        swipeRefreshLayout.setEnabled(refreshing);
     }
+
+//    public void setIsRefreshing(boolean flag) {
+//        isRefreshing = flag;
+//    }
+
 
     private SwipeRefreshLayout.OnRefreshListener recyclerViewRefreshListener =
             new SwipeRefreshLayout.OnRefreshListener() {
@@ -366,7 +377,7 @@ public class RealmRecyclerView extends FrameLayout {
                     if (!isRefreshing && onRefreshListener != null) {
                         onRefreshListener.onRefresh();
                     }
-                    isRefreshing = true;
+//                    isRefreshing = true;
                 }
             };
 }

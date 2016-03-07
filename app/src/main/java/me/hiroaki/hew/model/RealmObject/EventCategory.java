@@ -7,6 +7,7 @@ import com.google.gson.annotations.SerializedName;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -82,5 +83,11 @@ public class EventCategory extends RealmObject {
 				.where(EventCategory.class)
 				.equalTo("id", id)
 				.findFirst();
+	}
+
+	public static RealmResults<EventCategory> getAllEventCategory(Context context) {
+		return Realm.getInstance(context)
+				.where(EventCategory.class)
+				.findAll();
 	}
 }

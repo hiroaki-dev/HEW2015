@@ -28,12 +28,12 @@
         "source": "/Users/cymedix/Dropbox/AndroidProject/HEW/library/build/intermediates/exploded-aar/com.android.support/design/23.1.1/res/drawable/design_fab_background.xml"
     },
     {
-        "merged": "/Users/hiroaki/Dropbox/AndroidProject/HEW/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
-        "source": "/Users/hiroaki/Dropbox/AndroidProject/HEW/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
-    },
-    {
         "merged": "/Users/cymedix/Dropbox/AndroidProject/HEW/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_switch_thumb_material.xml",
         "source": "/Users/cymedix/Dropbox/AndroidProject/HEW/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_switch_thumb_material.xml"
+    },
+    {
+        "merged": "/Users/hiroaki/Dropbox/AndroidProject/HEW/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
+        "source": "/Users/hiroaki/Dropbox/AndroidProject/HEW/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
     },
     {
         "merged": "/Users/cymedix/Dropbox/AndroidProject/HEW/library/build/intermediates/res/merged/androidTest/debug/drawable/abc_ratingbar_full_material.xml",

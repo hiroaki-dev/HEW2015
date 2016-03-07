@@ -1,5 +1,6 @@
 package me.hiroaki.hew.activity;
 
+import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -10,14 +11,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 import me.hiroaki.hew.R;
+import me.hiroaki.hew.model.LoginInfo;
+import me.hiroaki.hew.model.RealmObject.Answer;
+import me.hiroaki.hew.model.RealmObject.Booth;
+import me.hiroaki.hew.model.RealmObject.Category;
+import me.hiroaki.hew.model.RealmObject.Event;
+import me.hiroaki.hew.model.RealmObject.EventCategory;
+import me.hiroaki.hew.model.LoginInfomation;
+import me.hiroaki.hew.model.RealmObject.Opinion;
+import me.hiroaki.hew.model.RealmObject.Questionnaire;
+import me.hiroaki.hew.util.AppUtil;
+import me.hiroaki.hew.util.LoginSetting;
 import me.hiroaki.hew.viewpager.ViewPagerAdapter;
 import me.hiroaki.hew.fragment.EventListFragment;
 
 public class EventListActivity extends AppCompatActivity {
+	private static final String TAG = EventListActivity.class.getSimpleName();
 
 	@Bind(R.id.drawer_layout)
 	DrawerLayout drawerLayout;
@@ -34,6 +50,7 @@ public class EventListActivity extends AppCompatActivity {
 	@Bind(R.id.tabs)
 	TabLayout tabLayout;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,10 +62,18 @@ public class EventListActivity extends AppCompatActivity {
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_18dp);
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setTitle(getResources().getString(R.string.title));
+		AppUtil.getEvents(getApplicationContext());
 
 		if (navigationView != null) {
-
 			navigationView.setNavigationItemSelectedListener(OnItemSelectedListener);
+
+			LoginInfo loginInfo = new LoginInfo(this);
+			View view = navigationView.getHeaderView(0);
+			TextView name = ButterKnife.findById(view, R.id.name);
+			name.setText(loginInfo.getName());
+			TextView studentId = ButterKnife.findById(view,R.id.student_id);
+			studentId.setText(loginInfo.getLoginId());
 		}
 
 
@@ -74,12 +99,32 @@ public class EventListActivity extends AppCompatActivity {
 					viewPager.setCurrentItem(2);
 					break;
 				default:
+					logout();
 					break;
 			}
 			drawerLayout.closeDrawers();
 			return false;
 		}
 	};
+
+	private void logout() {
+		Realm realm = Realm.getInstance(this);
+		realm.beginTransaction();
+		Answer.getAllAnswers(this).clear();
+		Booth.getAllBooth(this).clear();
+		Category.getAllCategory(this).clear();
+		Event.getAllEvent(this).clear();
+		EventCategory.getAllEventCategory(this).clear();
+		Opinion.getAllOpinion(this).clear();
+		Questionnaire.getAllQuestionnaire(this).clear();
+		realm.commitTransaction();
+
+		LoginSetting loginSetting = new LoginSetting(EventListActivity.this);
+		loginSetting.removeLogin();
+		Intent intent = new Intent(EventListActivity.this, LoginActivity.class);
+		startActivity(intent);
+		finish();
+	}
 
 
 	private void setupViewPager(ViewPager viewPager) {

@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -89,6 +90,19 @@ public class Answer extends RealmObject {
 				.equalTo("eventCategoryId", eventCategoryId)
 				.equalTo("questionnaireLineNum", questionnaireLineNum)
 				.findFirst();
+	}
+
+	public static RealmResults<Answer> getAnswers(Context context, String boothId) {
+		return Realm.getInstance(context)
+				.where(Answer.class)
+				.equalTo("boothId", boothId)
+				.findAll();
+	}
+
+	public static RealmResults<Answer> getAllAnswers(Context context) {
+		return Realm.getInstance(context)
+				.where(Answer.class)
+				.findAll();
 	}
 
 	public static int getAutoIncrementId(Context context) {

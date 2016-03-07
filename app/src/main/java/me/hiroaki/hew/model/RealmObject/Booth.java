@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -28,10 +29,6 @@ public class Booth extends RealmObject implements Serializable {
 	private int good;
 	@SerializedName("representative")
 	private String representative;
-
-	private boolean doneGoodFlag = false;
-	private boolean doneFeedbackFlag = false;
-
 
 	public String getId() {
 		return id;
@@ -73,30 +70,16 @@ public class Booth extends RealmObject implements Serializable {
 		this.representative = representative;
 	}
 
-
-
-
-
-	public boolean isDoneGoodFlag() {
-		return doneGoodFlag;
-	}
-
-	public void setDoneGoodFlag(boolean doneGoodFlag) {
-		this.doneGoodFlag = doneGoodFlag;
-	}
-
-	public boolean isDoneFeedbackFlag() {
-		return doneFeedbackFlag;
-	}
-
-	public void setDoneFeedbackFlag(boolean doneFeedbackFlag) {
-		this.doneFeedbackFlag = doneFeedbackFlag;
-	}
-
 	public static Booth getBooth(Context context, String id) {
 		return Realm.getInstance(context)
 				.where(Booth.class)
 				.equalTo("id", id)
 				.findFirst();
+	}
+
+	public static RealmResults<Booth> getAllBooth(Context context) {
+		return Realm.getInstance(context)
+				.where(Booth.class)
+				.findAll();
 	}
 }

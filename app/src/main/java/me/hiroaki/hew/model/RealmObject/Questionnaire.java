@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -112,5 +113,11 @@ public class Questionnaire extends RealmObject {
 				.where(Questionnaire.class)
 				.equalTo("id", id)
 				.findFirst();
+	}
+
+	public static RealmResults<Questionnaire> getAllQuestionnaire(Context context) {
+		return Realm.getInstance(context)
+				.where(Questionnaire.class)
+				.findAll();
 	}
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -23,7 +24,6 @@ import butterknife.ButterKnife;
 import co.moonmonkeylabs.realmrecyclerview.RealmRecyclerView;
 import io.realm.Realm;
 import io.realm.RealmBasedRecyclerViewAdapter;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.RealmViewHolder;
 import io.realm.Sort;
@@ -62,9 +62,20 @@ public class EventListFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_event_list, container, false);
 		ButterKnife.bind(this, view);
+		// Listenerをセット
 		setupRecyclerView(recyclerView);
+		recyclerView.setOnRefreshListener(new RealmRecyclerView.OnRefreshListener() {
+			@Override
+			public void onRefresh() {
+				Log.d(TAG, "onRefresh");
+				AppUtil.getEvents(getActivity());
+				recyclerView.setRefreshing(false);
+//			recyclerView.setIsRefreshing(false);
+			}
+		});
 		return view;
 	}
+
 
 
 	private void setupRecyclerView(RealmRecyclerView recyclerView) {
@@ -112,9 +123,16 @@ public class EventListFragment extends Fragment {
 		@Override
 		public void onBindRealmViewHolder(ViewHolder viewHolder, int position) {
 			final Event event = realmResults.get(position);
+
+			// VOS NoImage対策
+			if (event.getCategory().first().getBooths().first().getId().substring(0,1).equals("V")) {
+				viewHolder.eventImage.setImageDrawable(getResources().getDrawable(R.drawable.no_image_event));
+			}
 			Picasso.with(getContext()).load(AppUtil.getEventImageUrl(event.getId())).error(R.drawable.no_image_event).into(viewHolder.eventImage);
 			viewHolder.eventName.setText(event.getName());
-			viewHolder.eventTime.setText(event.getStart() + " ~ " + event.getEnd());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+			SimpleDateFormat sdf2 = new SimpleDateFormat("MM月dd日 HH時mm分");
+			viewHolder.eventTime.setText(sdf.format(event.getStart()) + " ~ " + sdf2.format(event.getEnd()));
 
 			viewHolder.eventCard.setOnClickListener(new View.OnClickListener() {
 				@Override

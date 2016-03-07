@@ -13,4 +13,10 @@
 	<string name="student_id">学籍番号</string>
 	<string name="password">パスワード</string>
 	<string name="login">ログイン</string>
+	<string name="title">HAL学生評価システム</string>
+	<string name="answered">回答済み</string>
+	<string name="close">閉じる</string>
+	<string name="detail">詳細</string>
+	<string name="datetime">掲載日時</string>
+	<string name="representative">担当者</string>
 </resources>

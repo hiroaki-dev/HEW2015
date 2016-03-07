@@ -20,18 +20,16 @@
 		android:layout_marginStart="@dimen/spacing"
 		android:layout_marginTop="40dp"
 		android:contentDescription="@string/app_name"
-		android:src="@mipmap/ic_launcher" />
+		android:src="@drawable/ic_other_account_circle_not_transmission" />
 
 	<TextView
-		android:id="@+id/txt_nav_header_title"
+		android:id="@+id/name"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/img_nav_header_icon"
-		android:layout_marginEnd="@dimen/spacing"
+		android:layout_toRightOf="@id/img_nav_header_icon"
 		android:layout_marginLeft="@dimen/spacing"
-		android:layout_marginRight="@dimen/spacing"
 		android:layout_marginStart="@dimen/spacing"
-		android:layout_marginTop="@dimen/spacing_small"
+		android:layout_marginTop="56dp"
 		android:ellipsize="end"
 		android:lines="1"
 		android:textColor="@color/white"
@@ -39,13 +37,12 @@
 		android:textStyle="bold" />
 
 	<TextView
+		android:id="@+id/student_id"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@id/txt_nav_header_title"
-		android:layout_marginBottom="@dimen/spacing"
-		android:layout_marginEnd="@dimen/spacing"
+		android:layout_below="@id/name"
+		android:layout_toRightOf="@id/img_nav_header_icon"
 		android:layout_marginLeft="@dimen/spacing"
-		android:layout_marginRight="@dimen/spacing"
 		android:layout_marginStart="@dimen/spacing"
 		android:layout_marginTop="@dimen/spacing_xsmall"
 		android:textColor="@color/white"

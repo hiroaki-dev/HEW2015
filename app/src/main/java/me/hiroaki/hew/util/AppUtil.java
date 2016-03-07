@@ -1,5 +1,8 @@
 package me.hiroaki.hew.util;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
@@ -11,13 +14,19 @@ import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import me.hiroaki.hew.api.HewApi;
+import me.hiroaki.hew.model.EventResponse;
 import me.hiroaki.hew.model.RealmObject.Booth;
 import me.hiroaki.hew.model.RealmObject.Category;
 import me.hiroaki.hew.model.RealmObject.Event;
 import me.hiroaki.hew.model.RealmObject.EventCategory;
+import me.hiroaki.hew.model.LoginInfomation;
 import me.hiroaki.hew.model.RealmObject.Questionnaire;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -61,7 +70,6 @@ public class AppUtil {
 		return getRetrofitBuilder().create(HewApi.class);
 	}
 
-
 	public static class EventSerializer implements JsonSerializer<Event> {
 
 		@Override
@@ -71,6 +79,7 @@ public class AppUtil {
 			jsonObject.addProperty("name", src.getName());
 			jsonObject.add("start", context.serialize(src.getStart()));
 			jsonObject.add("end", context.serialize(src.getEnd()));
+			jsonObject.addProperty("detail", src.getDetail());
 			jsonObject.add("category", context.serialize(src.getCategory()));
 			return jsonObject;
 		}
@@ -136,15 +145,47 @@ public class AppUtil {
 	}
 
 	public static String getEventImageUrl(int id) {
-		return HOST_URL + "event/" + id + ".png";
+		return HOST_URL + "hew/web/upload/event/" + id + ".png";
 	}
 
 	public static String getBoothImageUrl(String id) {
-		return HOST_URL + "booth/" + id + ".png";
+		return HOST_URL + "hew/web/upload/booth/" + id + ".png";
 	}
 
 	public static String[] getSplitedString(String description) {
 		return description.split(",", 0);
 	}
+
+
+
+	public static void getEvents(final Context context) {
+		LoginSetting loginSetting = new LoginSetting(context);
+		Call<EventResponse> response = AppUtil.getHewApiInstance()
+				.getEvents(loginSetting.getLoginId());
+		response.enqueue(new Callback<EventResponse>() {
+			@Override
+			public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
+				if (!response.isSuccess()) {
+					Toast.makeText(context, "更新できませんでした", Toast.LENGTH_LONG).show();
+					return;
+				}
+
+				if (response.code() < 300) {
+					Realm realm = Realm.getInstance(context);
+					realm.beginTransaction();
+					realm.copyToRealmOrUpdate(response.body().getEvent());
+					realm.commitTransaction();
+				} else {
+					Toast.makeText(context, "更新できませんでした", Toast.LENGTH_LONG).show();
+				}
+			}
+
+			@Override
+			public void onFailure(Call<EventResponse> call, Throwable t) {
+				Toast.makeText(context, "更新できませんでした", Toast.LENGTH_LONG).show();
+			}
+		});
+	}
+
 
 }

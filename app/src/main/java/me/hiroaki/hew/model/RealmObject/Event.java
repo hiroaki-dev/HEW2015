@@ -9,6 +9,7 @@ import java.util.Date;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -25,6 +26,8 @@ public class Event extends RealmObject {
 	private Date start;
 	@SerializedName("end")
 	private Date end;
+	@SerializedName("detail")
+	private String detail;
 	@SerializedName("category")
 	private RealmList<Category> category;
 
@@ -64,6 +67,15 @@ public class Event extends RealmObject {
 		this.end = end;
 	}
 
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+
 	public RealmList<Category> getCategory() {
 		return category;
 	}
@@ -77,6 +89,12 @@ public class Event extends RealmObject {
 				.where(Event.class)
 				.equalTo("id", id)
 				.findFirst();
+	}
+
+	public static RealmResults<Event> getAllEvent(Context context) {
+		return Realm.getInstance(context)
+				.where(Event.class)
+				.findAll();
 	}
 
 }

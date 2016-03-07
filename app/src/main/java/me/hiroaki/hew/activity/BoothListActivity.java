@@ -1,18 +1,28 @@
 package me.hiroaki.hew.activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,13 +46,16 @@ public class BoothListActivity extends AppCompatActivity {
 	Toolbar toolbar;
 
 	@Bind(R.id.backdrop)
-	ImageView backdrop;
+	AppCompatImageView backdrop;
 
 	@Bind(R.id.viewpager)
 	ViewPager viewPager;
 
 	@Bind(R.id.tabs)
 	TabLayout tabLayout;
+
+	Event event;
+	int currentPosition = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +74,34 @@ public class BoothListActivity extends AppCompatActivity {
 
 		Intent intent = getIntent();
 		int id = intent.getIntExtra(EXTRA_NAME, -1);
-		Event event = Event.getEvent(this, id);
+		event = Event.getEvent(this, id);
 		collapsingToolbarLayout.setTitle(event.getName());
 		Picasso.with(this).load(AppUtil.getEventImageUrl(event.getId())).error(R.drawable.no_image_event).into(backdrop);
 
-		setupViewPager(viewPager, event);
+		viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+			@Override
+			public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+			}
+
+			@Override
+			public void onPageSelected(int position) {
+				currentPosition = position;
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int state) {
+
+			}
+		});
+
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		setupViewPager(viewPager, event);
 		tabLayout.setupWithViewPager(viewPager);
 
 	}
@@ -75,7 +110,20 @@ public class BoothListActivity extends AppCompatActivity {
 	View.OnClickListener OnBackDropClickListener = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			// TODO: イベント情報をダイアログで表示
+			MaterialDialog dialog = new MaterialDialog.Builder(BoothListActivity.this)
+					.title(event.getName())
+					.customView(R.layout.dialog_event_detail, true)
+					.build();
+			ImageView eventImage = (ImageView) dialog.findViewById(R.id.event_image);
+			TextView eventDetail = (TextView) dialog.findViewById(R.id.event_detail);
+			TextView eventTime = (TextView) dialog.findViewById(R.id.event_time);
+
+			Picasso.with(BoothListActivity.this).load(AppUtil.getEventImageUrl(event.getId())).error(R.drawable.no_image_event).into(eventImage);
+			eventDetail.setText(event.getDetail());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+			eventTime.setText(sdf.format(event.getStart()) + " ~\n" + sdf.format(event.getEnd()));
+
+			dialog.show();
 		}
 	};
 
@@ -87,6 +135,7 @@ public class BoothListActivity extends AppCompatActivity {
 			adapter.addFragment(boothListFragment, category.getEventCategory().getName());
 		}
 		viewPager.setAdapter(adapter);
+		viewPager.setCurrentItem(currentPosition);
 	}
 
 

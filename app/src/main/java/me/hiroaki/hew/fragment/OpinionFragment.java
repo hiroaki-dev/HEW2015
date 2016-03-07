@@ -53,12 +53,7 @@ public class OpinionFragment extends Fragment implements OnPageScrolledListener 
 
 		opinion.addTextChangedListener(OpinionWatcher);
 		opinion.setText(getArguments().getString(BUNDLE_KEY));
-
-
-
-
 		count.setText(opinion.length() + "文字");
-		// TODO: RealmにquestionnaireIdで問い合わせてある場合は値をセット
 
 		return view;
 	}

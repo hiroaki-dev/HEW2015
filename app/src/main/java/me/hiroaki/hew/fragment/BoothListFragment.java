@@ -30,6 +30,7 @@ import io.realm.RealmViewHolder;
 import me.hiroaki.hew.R;
 import me.hiroaki.hew.activity.BoothDetailActivity;
 import me.hiroaki.hew.model.RealmObject.Booth;
+import me.hiroaki.hew.model.RealmObject.BoothDone;
 import me.hiroaki.hew.model.RealmObject.Category;
 import me.hiroaki.hew.util.AppUtil;
 
@@ -42,6 +43,7 @@ public class BoothListFragment extends Fragment {
 	RealmRecyclerView recyclerView;
 
 	Category category;
+	BoothRecyclerViewAdapter boothRecyclerViewAdapter;
 
 	public BoothListFragment() {}
 
@@ -62,6 +64,7 @@ public class BoothListFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_booth_list, container, false);
 		ButterKnife.bind(this, view);
 		setupRecyclerView(recyclerView);
+
 		return view;
 	}
 
@@ -77,19 +80,27 @@ public class BoothListFragment extends Fragment {
 				.findAll();		// RealmResult<Booth>取得
 
 		recyclerView.addItemDocoration(new DividerItemDecoration(getActivity()));
-		recyclerView.setAdapter(new BoothRecyclerViewAdapter(getActivity(), boothRealmResults, true, true));
+		boothRecyclerViewAdapter = new BoothRecyclerViewAdapter(getActivity(), boothRealmResults, true, true);
+		recyclerView.setAdapter(boothRecyclerViewAdapter);
+
+
+		if (!category.getEventCategory().isGoodFlag()) {
+			recyclerView.setEnabled(false);
+		}
 		recyclerView.setOnRefreshListener(new RealmRecyclerView.OnRefreshListener() {
 			@Override
 			public void onRefresh() {
 				Log.d(TAG, "onRefresh");
-				new Handler().postDelayed(new Runnable() {
-					@Override
-					public void run() {
-						// 更新が終了したらインジケータ非表示
-						recyclerView.setRefreshing(false);
-						recyclerView.setEnabled(false);
-					}
-				}, 2000);
+				// TODO: getBoothだけでいい
+				AppUtil.getEvents(getActivity());
+				recyclerView.setRefreshing(false);
+
+
+				RealmResults<Booth> boothRealmResults = category
+						.getBooths()	// RealmList<Booth>取得
+						.where()
+						.findAll();		// RealmResult<Booth>取得
+				boothRecyclerViewAdapter.updateRealmResults(boothRealmResults);
 			}
 		});
 
@@ -151,8 +162,24 @@ public class BoothListFragment extends Fragment {
 		@Override
 		public void onBindRealmViewHolder(ViewHolder viewHolder, int position) {
 			final Booth booth = realmResults.get(position);
-			Picasso.with(getContext()).load(AppUtil.getBoothImageUrl(booth.getId())).error(R.drawable.no_image_booth).into(viewHolder.boothImageIcon);
+			final BoothDone boothDone = BoothDone.getBoothDone(getActivity(), booth.getId());
+
+
+			viewHolder.boothId.setText(booth.getId());
+			// VOS NoImage対策
+			if (booth.getId().substring(0,1).equals("V")) {
+				viewHolder.boothImageIcon.setImageDrawable(getResources().getDrawable(R.drawable.no_image_booth));
+			} else {
+				Picasso.with(getContext()).load(AppUtil.getBoothImageUrl(booth.getId())).error(R.drawable.no_image_booth).into(viewHolder.boothImageIcon);
+			}
 			viewHolder.boothName.setText(booth.getName());
+			if (boothDone.isDoneFeedbackFlag()) {
+				viewHolder.mView.setBackgroundColor(getResources().getColor(R.color.black_alpha_5));
+				viewHolder.feedback.setVisibility(View.GONE);
+			} else {
+				viewHolder.mView.setBackgroundColor(getResources().getColor(R.color.window_background));
+				viewHolder.feedback.setVisibility(View.VISIBLE);
+			}
 
 			String[] representatives = AppUtil.getSplitedString(booth.getRepresentative());
 			String representative;
@@ -160,8 +187,16 @@ public class BoothListFragment extends Fragment {
 			else representative = representatives[0];
 			viewHolder.representative.setText(representative);
 
+
 			if (category.getEventCategory().isGoodFlag()) {
 				viewHolder.good.setText(booth.getGood() + "件");
+				if(boothDone.isDoneGoodFlag()) {
+					viewHolder.mView.setBackgroundColor(getResources().getColor(R.color.black_alpha_5));
+					viewHolder.feedback.setVisibility(View.GONE);
+				} else {
+					viewHolder.mView.setBackgroundColor(getResources().getColor(R.color.window_background));
+					viewHolder.feedback.setVisibility(View.VISIBLE);
+				}
 			} else {
 				viewHolder.good.setVisibility(View.GONE);
 			}
@@ -192,6 +227,8 @@ public class BoothListFragment extends Fragment {
 			public TextView representative;
 			@Bind(R.id.good)
 			public TextView good;
+			@Bind(R.id.booth_id)
+			public TextView boothId;
 
 			public ViewHolder(View container) {
 				super(container);

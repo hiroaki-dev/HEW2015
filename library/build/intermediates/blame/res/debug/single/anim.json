@@ -16,12 +16,12 @@
         "source": "/Users/cymedix/Dropbox/AndroidProject/HEW/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/anim/abc_shrink_fade_out_from_bottom.xml"
     },
     {
-        "merged": "/Users/hiroaki/Dropbox/AndroidProject/HEW/library/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
-        "source": "/Users/hiroaki/Dropbox/AndroidProject/HEW/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/anim/abc_shrink_fade_out_from_bottom.xml"
-    },
-    {
         "merged": "/Users/cymedix/Dropbox/AndroidProject/HEW/library/build/intermediates/res/merged/debug/anim/abc_popup_enter.xml",
         "source": "/Users/cymedix/Dropbox/AndroidProject/HEW/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/hiroaki/Dropbox/AndroidProject/HEW/library/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/hiroaki/Dropbox/AndroidProject/HEW/library/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/res/anim/abc_shrink_fade_out_from_bottom.xml"
     },
     {
         "merged": "/Users/cymedix/Dropbox/AndroidProject/HEW/library/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
