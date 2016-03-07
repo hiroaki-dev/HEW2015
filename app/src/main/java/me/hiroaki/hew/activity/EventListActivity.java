@@ -21,6 +21,7 @@ import me.hiroaki.hew.R;
 import me.hiroaki.hew.model.LoginInfo;
 import me.hiroaki.hew.model.RealmObject.Answer;
 import me.hiroaki.hew.model.RealmObject.Booth;
+import me.hiroaki.hew.model.RealmObject.BoothDone;
 import me.hiroaki.hew.model.RealmObject.Category;
 import me.hiroaki.hew.model.RealmObject.Event;
 import me.hiroaki.hew.model.RealmObject.EventCategory;
@@ -117,6 +118,7 @@ public class EventListActivity extends AppCompatActivity {
 		EventCategory.getAllEventCategory(this).clear();
 		Opinion.getAllOpinion(this).clear();
 		Questionnaire.getAllQuestionnaire(this).clear();
+		BoothDone.getAllBoothDone(this).clear();
 		realm.commitTransaction();
 
 		LoginSetting loginSetting = new LoginSetting(EventListActivity.this);

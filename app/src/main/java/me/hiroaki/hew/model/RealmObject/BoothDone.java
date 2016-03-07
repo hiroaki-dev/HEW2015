@@ -6,6 +6,7 @@ import android.util.Log;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
+import io.realm.RealmResults;
 import io.realm.annotations.PrimaryKey;
 
 /**
@@ -65,5 +66,11 @@ public class BoothDone extends RealmObject {
 					.findFirst();
 		}
 		return boothDone;
+	}
+
+	public static RealmResults<BoothDone> getAllBoothDone(Context context) {
+		return Realm.getInstance(context)
+				.where(BoothDone.class)
+				.findAll();
 	}
 }
