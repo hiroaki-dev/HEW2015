@@ -66,6 +66,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
 	private void postLogin() {
+		if (!loginId.getText().toString().equals("guest")) {
+			Toast.makeText(getApplicationContext(), "配布版ではguestユーザ以外ログインできません", Toast.LENGTH_LONG).show();
+			return;
+		}
 		Call<LoginInfomation> response = AppUtil.getHewApiInstance()
 				.postLogin(loginId.getText().toString(), password.getText().toString());
 		response.enqueue(new Callback<LoginInfomation>() {

@@ -108,16 +108,16 @@ public class EventListActivity extends AppCompatActivity {
 	};
 
 	private void logout() {
-		Realm realm = Realm.getInstance(this);
-		realm.beginTransaction();
-		Answer.getAllAnswers(this).clear();
-		Booth.getAllBooth(this).clear();
-		Category.getAllCategory(this).clear();
-		Event.getAllEvent(this).clear();
-		EventCategory.getAllEventCategory(this).clear();
-		Opinion.getAllOpinion(this).clear();
-		Questionnaire.getAllQuestionnaire(this).clear();
-		realm.commitTransaction();
+//		Realm realm = Realm.getInstance(this);
+//		realm.beginTransaction();
+//		Answer.getAllAnswers(this).clear();
+//		Booth.getAllBooth(this).clear();
+//		Category.getAllCategory(this).clear();
+//		Event.getAllEvent(this).clear();
+//		EventCategory.getAllEventCategory(this).clear();
+//		Opinion.getAllOpinion(this).clear();
+//		Questionnaire.getAllQuestionnaire(this).clear();
+//		realm.commitTransaction();
 
 		LoginSetting loginSetting = new LoginSetting(EventListActivity.this);
 		loginSetting.removeLogin();
