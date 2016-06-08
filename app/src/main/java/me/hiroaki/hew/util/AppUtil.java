@@ -35,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by hiroaki on 2016/02/14.
  */
 public class AppUtil {
-	public static final String HOST_URL = "http://hiroaki.me/";
+	public static final String HOST_URL = "https://hiroaki.me/";
 
 	public static Retrofit getRetrofitBuilder() {
 		Gson gson = new GsonBuilder()
@@ -166,7 +166,7 @@ public class AppUtil {
 			@Override
 			public void onResponse(Call<EventResponse> call, Response<EventResponse> response) {
 				if (!response.isSuccess()) {
-					Toast.makeText(context, "更新できませんでした", Toast.LENGTH_LONG).show();
+					Toast.makeText(context, "更新できませんでした" + response.message() + response.code(), Toast.LENGTH_LONG).show();
 					return;
 				}
 
